@@ -1,18 +1,38 @@
 ﻿@page "/login"
+@rendermode InteractiveServer
 
-<MudGrid Justify="Justify.Center">
-    <MudItem>
-        <MudCard>
-            <MudCardContent>
-               <!--Login Form-->
-            </MudCardContent>
-            <MudCardActions Class="d-flex justify-content-around">
-                <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Login" Color="Color.Success">Login</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
-</MudGrid>
+<div class="wrapper">
+    <div class="logo">
+        <img src="image/DentalCareLogo.png" alt="">
+    </div>
+    <EditForm Model="loginModel" FormName="formLogin" OnValidSubmit="Submit" class="p-3 mt-3">
+        <DataAnnotationsValidator />
+        <div class="form-field d-flex align-items-center">
+            <span class="far fa-user"></span>
+            <input @bind-value="loginModel.Username" type="text" name="userName" id="userName" placeholder="Username">
+        </div>
+        <ValidationMessage For="() => loginModel.Username" />
+        <div class="form-field d-flex align-items-center">
+            <span class="fas fa-key"></span>
+            <input @bind-value="loginModel.Password" type="password" name="password" id="pwd" placeholder="Password">
+        </div>
+        <ValidationMessage For="() => loginModel.Password" />
+
+        <button type="submit" class="btn mt-3">Login</button>
+    </EditForm>
+</div>
+
 
 @code {
+    [SupplyParameterFromForm]
+    private LoginAccountForm loginModel { get; set; } = new();
 
+    private void Submit()
+    {
+        if (loginModel != null)
+        {
+            Console.WriteLine($"Username: {loginModel.Username}");
+            Console.WriteLine($"Password: {loginModel.Password}");
+        }
+    }
 }
