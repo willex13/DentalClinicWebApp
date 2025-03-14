@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/"
 @rendermode InteractiveServer
 
 <div class="wrapper">
@@ -9,13 +9,15 @@
         <DataAnnotationsValidator />
         <div class="form-field d-flex align-items-center">
             <span class="far fa-user"></span>
-            <input @bind-value="loginModel.Username" type="text" name="userName" id="userName" placeholder="Username">
+            <InputText @bind-Value="loginModel.Username" Type="text" Placeholder="Username" />
         </div>
         <ValidationMessage For="() => loginModel.Username" />
         <div class="form-field d-flex align-items-center">
             <span class="fas fa-key"></span>
-            <input @bind-value="loginModel.Password" type="password" name="password" id="pwd" placeholder="Password">
+            <InputText @bind-Value="loginModel.Password" Type="Password" Placeholder="Password" />
         </div>
+    
+
         <ValidationMessage For="() => loginModel.Password" />
 
         <button type="submit" class="btn mt-3">Login</button>
