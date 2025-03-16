@@ -1,5 +1,8 @@
 ﻿@page "/"
+
 @rendermode InteractiveServer
+
+@inject NavigationManager navigationManager
 
 <div class="wrapper">
     <div class="logo">
@@ -7,18 +10,17 @@
     </div>
     <EditForm Model="loginModel" FormName="formLogin" OnValidSubmit="Submit" class="p-3 mt-3">
         <DataAnnotationsValidator />
+        <ValidationMessage For="() => loginModel.Username" />
         <div class="form-field d-flex align-items-center">
             <span class="far fa-user"></span>
             <InputText @bind-Value="loginModel.Username" Type="text" Placeholder="Username" />
         </div>
-        <ValidationMessage For="() => loginModel.Username" />
+
+        <ValidationMessage For="() => loginModel.Password" />
         <div class="form-field d-flex align-items-center">
             <span class="fas fa-key"></span>
             <InputText @bind-Value="loginModel.Password" Type="Password" Placeholder="Password" />
         </div>
-    
-
-        <ValidationMessage For="() => loginModel.Password" />
 
         <button type="submit" class="btn mt-3">Login</button>
     </EditForm>
@@ -31,10 +33,7 @@
 
     private void Submit()
     {
-        if (loginModel != null)
-        {
-            Console.WriteLine($"Username: {loginModel.Username}");
-            Console.WriteLine($"Password: {loginModel.Password}");
-        }
+        if (!string.IsNullOrEmpty(loginModel.Username) && !string.IsNullOrEmpty(loginModel.Password))
+            navigationManager.NavigateTo("/home");
     }
 }
